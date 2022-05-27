@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -20,12 +19,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.bimserlogin.R
 import com.example.bimserlogin.model.LoginRequest
-import com.example.bimserlogin.model.LoginResponse
-import com.example.bimserlogin.util.Resource
-import com.example.bimserlogin.viewModel.LanguageViewModel
 import com.example.bimserlogin.viewModel.LoginViewModel
+
 private lateinit var prefence: SharedPreferences
 private lateinit var editor: SharedPreferences.Editor
+
 @Composable
 fun LoginBoxScreen(
     loginRequest: LoginRequest,
@@ -35,12 +33,8 @@ fun LoginBoxScreen(
 
     var idValue by remember { mutableStateOf("") }
     var passwordValue by remember { mutableStateOf("") }
-
-
     var passwordVisibility by remember { mutableStateOf(false) }
     var focusRequester = remember { FocusRequester() }
-    //val focusManager = LocalFocusManager.current
-    //var loginResponse by remember { mutableStateOf<Resource<LoginResponse>>(Resource.Loading()) }
 
     loginRequest.captcha = null
     loginRequest.captchaId = null
@@ -71,7 +65,12 @@ fun LoginBoxScreen(
                 singleLine = true,
                 colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.Transparent),
                 label = { Text(text = stringResource(id = R.string.username)) },
-                placeholder = { Text(text =  stringResource(id = R.string.username), color = Color.LightGray) },
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.username),
+                        color = Color.LightGray
+                    )
+                },
                 modifier = Modifier.fillMaxWidth(0.8f),
             )
 
@@ -94,7 +93,12 @@ fun LoginBoxScreen(
                     }
                 },
                 label = { Text(text = stringResource(id = R.string.password)) },
-                placeholder = { Text(text = stringResource(id = R.string.password), color = Color.LightGray) },
+                placeholder = {
+                    Text(
+                        text = stringResource(id = R.string.password),
+                        color = Color.LightGray
+                    )
+                },
                 singleLine = true,
                 colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.Transparent),
                 visualTransformation = if (passwordVisibility) VisualTransformation.None
@@ -105,9 +109,7 @@ fun LoginBoxScreen(
                 //keyboardActions = {KeyboardActions(onDone = {focusManager.clearFocus()})},
                 //keyboardActions = { KeyboardOptions.Default.copy(imeAction = ImeAction.Done, keyboardType = KeyboardType.Password)}
             )
-
             Spacer(modifier = Modifier.height(10.dp))
-
 
             Switch(
                 checked = false, enabled = false,
@@ -119,23 +121,9 @@ fun LoginBoxScreen(
                     .padding(30.dp, 0.dp),
             )
         }
-        //loginRequest.password = passwordValue
         loginRequest.password = passwordValue
         loginRequest.username = idValue
-
-        /* if(loginRequest.password!!.isNotEmpty()) {
-             LaunchedEffect(key1 = Unit) {
-                 delay(4000)
-                 loginResponse = viewModel.getLogin(loginRequest)
-                 println(loginResponse.data)
-                 println(loginResponse.message)
-             }
-         }*/
     }
-
-    /*if (loginRequest.password != "" && loginRequest.username != "") {
-
-    }*/
     LoginButton(viewModel = viewModel, navController = navController, loginRequest)
 }
 

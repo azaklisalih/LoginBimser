@@ -1,5 +1,6 @@
 package com.example.bimserlogin.view
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -27,19 +28,11 @@ import com.example.bimserlogin.viewModel.LoginViewModel
 @Composable
 fun LoginScreen(
     navController: NavController,
-    viewModel: LoginViewModel = hiltViewModel(),
-    //loginRequest : LoginRequest
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
-
+    //var loginRequest : LoginRequest
     var loginRequest = LoginRequest("tr-TR", "sazakli", "Sazakli12..", false, null, null)
 
-    //val scope = rememberCoroutineScope()
-    /*var loginResponse by remember{ mutableStateOf<Resource<LoginResponse>>(Resource.Loading())}
-
-    scope.launch {
-            loginResponse = viewModel.getLogin(loginRequest)
-            println(loginResponse.data)
-        }*/
     /*var loginResponse by remember{ mutableStateOf<Resource<LoginResponse>>(Resource.Loading())}
 
     LaunchedEffect(key1 = Unit){
@@ -67,12 +60,10 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(50.dp))
             IconSynergy()
             LoginBoxScreen(loginRequest, viewModel, navController)
-            
         }
         SettingsButton(navController = navController)
     }
 }
-
 
 @Composable
 fun SettingsButton(navController: NavController) {
@@ -106,17 +97,6 @@ fun LoginButton(
     Button(
         onClick = {
             viewModel.loadLogin(loginRequest, navController, context)
-
-            /*when(loginResponse){
-                is Resource.Success -> {
-                    println("saA")
-                    navController.navigate(Screen.Home.route)
-                }
-                is Resource.Error -> {
-                    Toast.makeText(context,"Incorrect username or password!",Toast.LENGTH_LONG).show()
-                }
-            }*/
-
         },
         modifier = Modifier
             .size(100.dp, 50.dp),
@@ -146,6 +126,5 @@ fun IconSynergy() {
             Spacer(modifier = Modifier.width(1.dp))
             Text(text = "Synergy", fontWeight = FontWeight.Light, fontSize = 24.sp)
         }
-
     }
 }

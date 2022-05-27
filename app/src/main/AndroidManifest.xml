@@ -4,6 +4,7 @@
     package="com.example.bimserlogin">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
     <application
         android:name=".BimserLoginApplication"
         android:allowBackup="true"

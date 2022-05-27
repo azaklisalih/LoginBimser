@@ -50,7 +50,6 @@ fun MultiLanguage(
 
     SetLanguage(position = currentLanguage!!)
 
-
      Column {
         Column(
             modifier = Modifier
