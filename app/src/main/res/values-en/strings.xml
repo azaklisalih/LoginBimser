@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BimserLogin</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="rememberme">Remember Me</string>
+    <string name="menulanguage">En</string>
+    <string name="language">en-EN</string>
+</resources>

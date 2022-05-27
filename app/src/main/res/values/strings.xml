@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BimserLogin</string>
+    <string name="username">Kullanıcı Adı</string>
+    <string name="password">Parola</string>
+    <string name="login">Giriş</string>
+    <string name="rememberme">Beni Hatırla</string>
+    <string name="menulanguage">Tr</string>
+    <string name="language">tr-TR</string>
+
+</resources>
