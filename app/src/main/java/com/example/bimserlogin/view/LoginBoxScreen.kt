@@ -3,13 +3,17 @@ package com.example.bimserlogin.view
 import android.content.SharedPreferences
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -20,10 +24,8 @@ import androidx.navigation.NavController
 import com.example.bimserlogin.R
 import com.example.bimserlogin.model.LoginRequest
 import com.example.bimserlogin.viewModel.LoginViewModel
-
-private lateinit var prefence: SharedPreferences
-private lateinit var editor: SharedPreferences.Editor
-
+import kotlinx.coroutines.launch
+private val language = listOf("Turkish", "English")
 @Composable
 fun LoginBoxScreen(
     loginRequest: LoginRequest,
@@ -36,10 +38,14 @@ fun LoginBoxScreen(
     var passwordVisibility by remember { mutableStateOf(false) }
     var focusRequester = remember { FocusRequester() }
 
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+
+    loginRequest.language = stringResource(id = R.string.language)
     loginRequest.captcha = null
     loginRequest.captchaId = null
     loginRequest.password = ""
-    loginRequest.language = stringResource(id = R.string.language)
+
     loginRequest.rememberMe = false
     loginRequest.username = ""
     Box(
@@ -66,6 +72,7 @@ fun LoginBoxScreen(
                 colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.Transparent),
                 label = { Text(text = stringResource(id = R.string.username)) },
                 placeholder = {
+                    println(R.string.username)
                     Text(
                         text = stringResource(id = R.string.username),
                         color = Color.LightGray

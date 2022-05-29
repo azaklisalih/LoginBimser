@@ -1,20 +1,16 @@
 package com.example.bimserlogin.view
 
-import android.content.Context
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material.R
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.runtime.*
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
-import androidx.compose.ui.Alignment.Companion.TopCenter
-import androidx.compose.ui.Alignment.Companion.TopEnd
-import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -24,25 +20,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import com.example.bimserlogin.model.LoginRequest
-import com.example.bimserlogin.repository.LoginRepository
-import com.example.bimserlogin.util.DataStorePreferenceRepository
+import com.example.bimserlogin.repository.DataStorePreferenceRepository
 import com.example.bimserlogin.util.DataStoreViewModelFactory
 import com.example.bimserlogin.viewModel.LanguageViewModel
-import com.example.bimserlogin.viewModel.LoginViewModel
 import kotlinx.coroutines.launch
 import java.util.*
 
 private val language = listOf("Turkish", "English")
+
 @Composable
 fun MultiLanguage(
-    viewModel : LanguageViewModel = viewModel(
+    viewModel: LanguageViewModel = viewModel(
         factory = DataStoreViewModelFactory(DataStorePreferenceRepository(LocalContext.current))
     )
-){
+) {
     val scope = rememberCoroutineScope()
     val currentLanguage = viewModel.language.observeAsState().value
     //val menuExpanded = remember { mutableStateOf(false) }
@@ -50,7 +42,7 @@ fun MultiLanguage(
 
     SetLanguage(position = currentLanguage!!)
 
-     Column {
+    Column {
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState(0))
@@ -59,10 +51,9 @@ fun MultiLanguage(
         ) {
             LanguagePicker(currentLanguage) { selected ->
                 scope.launch {
-                    viewModel.saveLanguage(selected,context)
+                    viewModel.saveLanguage(selected, context)
                 }
             }
-
         }
     }
 }
@@ -94,18 +85,6 @@ fun LanguageContentPortrait(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ToggleGroup(selectedPosition = selectedPosition, onClick = onLanguageSelected)
-
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(id = com.example.bimserlogin.R.string.menulanguage),
-                modifier = Modifier.fillMaxSize(),
-                textAlign = TextAlign.Center
-            )
-        }
     }
 }
 

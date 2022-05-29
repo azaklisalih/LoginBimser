@@ -12,7 +12,7 @@ import com.example.bimserlogin.model.LoginRequest
 import com.example.bimserlogin.model.LoginResponse
 import com.example.bimserlogin.navigation.Screen
 import com.example.bimserlogin.repository.LoginRepository
-import com.example.bimserlogin.util.DataStorePreferenceRepository
+import com.example.bimserlogin.repository.DataStorePreferenceRepository
 import com.example.bimserlogin.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,6 +26,20 @@ class LoginViewModel @Inject constructor(
 
     var loginResponse = mutableStateOf<Resource<LoginResponse>>(Resource.Loading())
     var loginRequest = mutableStateOf<LoginRequest>(LoginRequest("","","",null,"",""))
+
+    private val _language = MutableLiveData(0)
+    var language: LiveData<Int> = _language
+
+    init {
+        viewModelScope.launch {
+            dataStorePreferenceRepository.getLanguage.collect {
+                _language.value = it
+            }
+        }
+    }
+    suspend fun saveLanguage(language: Int,context: Context) {
+        dataStorePreferenceRepository.setLanguage(language,context)
+    }
 
     fun loadLogin(loginRequest: LoginRequest, navController: NavController, context: Context) {
 

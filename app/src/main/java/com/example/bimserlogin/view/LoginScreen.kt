@@ -2,10 +2,15 @@ package com.example.bimserlogin.view
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,8 +29,9 @@ import com.example.bimserlogin.R
 import com.example.bimserlogin.model.LoginRequest
 import com.example.bimserlogin.navigation.Screen
 import com.example.bimserlogin.viewModel.LoginViewModel
+import kotlinx.coroutines.launch
 
-
+private val language = listOf("Turkish", "English")
 @Composable
 fun LoginScreen(
     navController: NavController,
@@ -33,6 +39,12 @@ fun LoginScreen(
 ) {
 
     var loginRequest = remember{viewModel.loginRequest.value}
+    val scope = rememberCoroutineScope()
+    val currentLanguage = viewModel.language.observeAsState().value
+    //val menuExpanded = remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
+    SetLanguage(position = currentLanguage!!)
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -50,6 +62,19 @@ fun LoginScreen(
         ) {
 
             //MultiLanguage()
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState(0))
+                    .fillMaxSize()
+                    .background(Color.Transparent)
+            ) {
+                LanguagePicker(currentLanguage) { selected ->
+                    scope.launch {
+                        viewModel.saveLanguage(selected, context)
+                        navController.navigate(Screen.Login.route)
+                    }
+                }
+            }
             Spacer(modifier = Modifier.height(50.dp))
             IconSynergy()
             LoginBoxScreen(loginRequest, viewModel, navController)

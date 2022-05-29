@@ -2,6 +2,7 @@ package com.example.bimserlogin.util
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.bimserlogin.repository.DataStorePreferenceRepository
 import com.example.bimserlogin.viewModel.LanguageViewModel
 
 public class DataStoreViewModelFactory(private val dataStorePreferenceRepository: DataStorePreferenceRepository):

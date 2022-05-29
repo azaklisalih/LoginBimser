@@ -1,27 +1,20 @@
-package com.example.bimserlogin.util
+package com.example.bimserlogin.repository
 
 import android.content.Context
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.datastore.preferences.preferencesDataStoreFile
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityScoped
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.intellij.lang.annotations.Language
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@ViewModelScoped
+@ActivityScoped
 class DataStorePreferenceRepository @Inject constructor(
   @ApplicationContext  context: Context) {
 
@@ -39,7 +32,7 @@ class DataStorePreferenceRepository @Inject constructor(
 
         private var INSTANCE : DataStorePreferenceRepository? = null
 
-        fun getInstance(context: Context) : DataStorePreferenceRepository{
+        fun getInstance(context: Context) : DataStorePreferenceRepository {
             return  INSTANCE ?: synchronized(this){
                 INSTANCE?.let {
                     return it

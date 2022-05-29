@@ -7,4 +7,8 @@
     <string name="rememberme">Remember Me</string>
     <string name="menulanguage">En</string>
     <string name="language">en-EN</string>
+    <string name="servertitle">ServerList</string>
+    <string name="addserver">Add Server</string>
+    <string name="toggle1">English</string>
+    <string name="toggle0">Turkish</string>
 </resources>

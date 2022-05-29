@@ -6,5 +6,10 @@
     <string name="rememberme">Beni Hatırla</string>
     <string name="menulanguage">Tr</string>
     <string name="language">tr-TR</string>
+    <string name="servertitle">Sunucu Listesi</string>
+    <string name="addserver">Sunucu Ekle</string>
+    <string name="toggle1">İngilizce</string>
+    <string name="toggle0">Türkçe</string>
+
 
 </resources>
