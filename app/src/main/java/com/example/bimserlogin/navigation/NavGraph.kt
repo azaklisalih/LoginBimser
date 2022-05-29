@@ -4,10 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.bimserlogin.view.LoginScreen
-import com.example.bimserlogin.view.ServerScreen
-import com.example.bimserlogin.view.SplashScreen
-import com.example.bimserlogin.view.HomeScreen
+import com.example.bimserlogin.view.*
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -28,6 +25,9 @@ fun SetupNavGraph(navController : NavHostController){
         }
         composable(route = Screen.Home.route){
             HomeScreen(navController)
+        }
+        composable(route = Screen.QR.route) {
+            QRScreen()
         }
     }
 

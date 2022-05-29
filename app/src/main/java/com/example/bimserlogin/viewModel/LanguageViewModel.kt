@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bimserlogin.util.DataStorePreferenceRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class LanguageViewModel(
@@ -26,4 +27,6 @@ class LanguageViewModel(
     suspend fun saveLanguage(language: Int,context: Context) {
         dataStorePreferenceRepository.setLanguage(language,context)
     }
+
+
 }

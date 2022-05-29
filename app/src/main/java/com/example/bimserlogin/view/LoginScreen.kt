@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,16 +31,8 @@ fun LoginScreen(
     navController: NavController,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
-    //var loginRequest : LoginRequest
-    var loginRequest = LoginRequest("tr-TR", "sazakli", "Sazakli12..", false, null, null)
 
-    /*var loginResponse by remember{ mutableStateOf<Resource<LoginResponse>>(Resource.Loading())}
-
-    LaunchedEffect(key1 = Unit){
-        loginResponse = viewModel.getLogin(loginRequest)
-        println(loginResponse.data)
-        println(loginResponse.message)
-    }*/
+    var loginRequest = remember{viewModel.loginRequest.value}
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -56,7 +49,7 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            MultiLanguage()
+            //MultiLanguage()
             Spacer(modifier = Modifier.height(50.dp))
             IconSynergy()
             LoginBoxScreen(loginRequest, viewModel, navController)

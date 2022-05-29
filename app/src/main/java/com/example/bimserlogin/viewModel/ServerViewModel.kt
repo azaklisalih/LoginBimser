@@ -1,11 +1,36 @@
 package com.example.bimserlogin.viewModel
 
+import android.content.Context
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.bimserlogin.util.DataStorePreferenceRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
+class ServerViewModel @Inject constructor(
+    private val dataStorePreferenceRepository: DataStorePreferenceRepository
+) : ViewModel(){
 
-class ServerViewModel : ViewModel(){
-    fun getServerURL(url : String) : String {
-        var url = url
-        return url
+    private val _serverUrl = MutableLiveData("")
+    var serverUrl : LiveData<String> = _serverUrl
+
+    init {
+        viewModelScope.launch {
+            dataStorePreferenceRepository.getServerUrl.collect{
+                _serverUrl.value = it
+            }
+        }
     }
+
+    suspend fun saveServerUrl(serverUrl : String, context: Context){
+        dataStorePreferenceRepository.setServerUrl(serverUrl,context)
+    }
+
 }
